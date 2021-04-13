@@ -52,7 +52,13 @@ namespace BreakingBricksTest
 
         public IScoreService CreateService()
         {
-            return new ScoreServiceFile();
+            var service = new ScoreServiceEF();
+            service.ResetScore();
+            return service;
+
+           // return new ScoreServiceFile();
+
+
         }
     }
 }

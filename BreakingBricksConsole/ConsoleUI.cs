@@ -12,7 +12,8 @@ namespace BreakingBricks.ConsoleUI
     public class ConsoleUI
     {
         private readonly Field _field;
-        private readonly IScoreService _scoreService = new ScoreServiceFile();
+        //private readonly IScoreService _scoreService = new ScoreServiceFile();
+        private readonly IScoreService _scoreService = new ScoreServiceEF();
         public int poc = 0;
         public int abeceda = 0;
         public char ch = 'a';

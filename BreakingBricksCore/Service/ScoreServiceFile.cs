@@ -12,37 +12,42 @@ namespace BreakingBricksCore.Service
     {
         private const string FileName = "score.bin";
 
-        private List<Score> _scores = new List<Score>();
-        void IScoreService.AddScore(Score score)
+        private IList<Score> _scores = new List<Score>();
+        public void AddScore(Score score)
         {
             _scores.Add(score);
             SaveScores();
         }
 
-        IList<Score> IScoreService.GetTopScores()
+        public IList<Score> GetTopScores()
         {
             LoadScores();
-            return _scores.OrderByDescending(s => s.BrickScore).Take(3).ToList();
-            
+            return (from s in _scores orderby s.BrickScore descending select s).Take(3).ToList();
+
         }
-        void IScoreService.ResetScore()
+        public void ResetScore()
         {
             _scores.Clear();
             File.Delete(FileName);
         }
-        private void SaveScores()
+       
+        public void SaveScores()
         {
-            using var fs = File.OpenWrite(FileName);
-            var bf = new BinaryFormatter();
-            bf.Serialize(fs, _scores);
+            using (var fs = File.OpenWrite(FileName))
+            {
+                var bf = new BinaryFormatter();
+                bf.Serialize(fs, _scores);
+            }
         }
         private void LoadScores()
         {
             if (File.Exists(FileName))
             {
-                using var fs = File.OpenRead(FileName);
-                var bf = new BinaryFormatter();
-                _scores = (List<Score>)bf.Deserialize(fs);
+                using (var fs = File.OpenRead(FileName))
+                {
+                    var bf = new BinaryFormatter();
+                    _scores = (List<Score>) bf.Deserialize(fs);
+                }
             }
         }
     }
