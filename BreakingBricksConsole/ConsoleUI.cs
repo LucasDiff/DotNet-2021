@@ -14,7 +14,7 @@ namespace BreakingBricks.ConsoleUI
         private readonly Field _field;
         private readonly IScoreService _scoreService = new ScoreServiceFile();
         public int poc = 0;
-        public int abeceda = 0;
+        public int abeceda = 1;
         public char ch = 'a';
         public ConsoleUI(Field field)
         {
