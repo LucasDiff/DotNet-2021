@@ -14,6 +14,7 @@ namespace BreakingBricks.ConsoleUI
         private readonly Field _field;
         //private readonly IScoreService _scoreService = new ScoreServiceFile();
         private readonly IScoreService _scoreService = new ScoreServiceEF();
+       // private readonly ICommentService _commentService = new CommentServiceEF();
         public int poc = 0;
         public int abeceda = 0;
         public char ch = 'a';
@@ -23,6 +24,8 @@ namespace BreakingBricks.ConsoleUI
         }
         public void Play()
         {
+            //_commentService.AddComment(
+             //   new Comment {11,"me", "yo"});
             Top();
             do
             {
@@ -106,6 +109,18 @@ namespace BreakingBricks.ConsoleUI
             System.Console.WriteLine("Your Score: {0}\n", _field.GetScore());
             System.Console.WriteLine("Magic wands left: {0}\n", _field.MagicWand());
         }
+
+    /*    private void PrintComments()
+        {
+            var comments = _commentService.GetComments();
+            Console.WriteLine("Comments :");
+            int idx = 1;
+            foreach( var comment in comments)
+            {
+                Console.WriteLine("{0}. {1, -12} {2,4}", idx, comment.Name, comment.Content);
+                idx++;
+            }
+        }*/
         private void Top()
         {
             System.Console.WriteLine("");
@@ -116,6 +131,7 @@ namespace BreakingBricks.ConsoleUI
                 System.Console.WriteLine("       {0} :  {1}", score.Player, score.BrickScore);
             }
             System.Console.WriteLine();
+            //PrintComments();
             System.Console.WriteLine("Careful if you use all of your Magic Wands you lose!");
             System.Console.WriteLine();
 

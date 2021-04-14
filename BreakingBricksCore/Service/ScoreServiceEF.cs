@@ -4,7 +4,7 @@ using System.Text;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using BreakingBricksCore.Entity;
-using BreakingBricksCore.Service;
+
 
 
 namespace BreakingBricksCore.Service
@@ -22,9 +22,12 @@ namespace BreakingBricksCore.Service
 
         public IList<Score> GetTopScores()
         {
-            using (var context = new BreakingBricksDbContext())
+            using (var db = new BreakingBricksDbContext())
             {
-                return (from s in context.Scores orderby s.BrickScore descending select s).Take(3).ToList();
+                var a = (from s in db.Scores orderby s.BrickScore descending select s);
+                return a.Take(3).ToList();
+
+                
             }
         }
 

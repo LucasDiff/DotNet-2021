@@ -8,7 +8,6 @@ namespace BreakingBricksCore.Service
     public interface ICommentService
     {
         void AddComment(Comment comment);
-        IList<Comment> GetBestComments();
-        void ResetComments();
+        IList<Comment> GetComments();
     }
 }
