@@ -9,5 +9,7 @@ namespace BreakingBricksCore.Service
     {
         void AddComment(Comment comment);
         IList<Comment> GetComments();
+        void ResetComments();
+        IList<Comment> GetTopComments();
     }
 }

@@ -9,6 +9,8 @@ namespace BreakingBricksCore.Entity
     {
         public int ID { get; set; }
         public string Name { get; set; }
+
+        public DateTime PlayedAt { get; set; }
         public string Content { get; set; }
         
     }

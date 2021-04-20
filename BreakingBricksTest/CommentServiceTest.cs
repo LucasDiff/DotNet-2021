@@ -17,7 +17,7 @@ namespace BreakingBricksTest
             service.AddComment(new Comment { ID = 6832, Name = "Martina", Content = "prilis lahke" });
 
             
-            Assert.AreEqual(2, service.GetBestComments().Count);
+            Assert.AreEqual(2, service.GetTopComments().Count);
 
         }
 
@@ -30,12 +30,12 @@ namespace BreakingBricksTest
             service.AddComment(new Comment { ID = 0219, Name = "Anna", Content = "super hra!" });
 
             service.ResetComments();
-            Assert.AreEqual(0, service.GetBestComments().Count);
+            Assert.AreEqual(0, service.GetTopComments().Count);
 
         }
         public ICommentService CreateService()
         {
-            return new CommentServiceFile();
+            return new CommentServiceEF();
         }
     }
 }

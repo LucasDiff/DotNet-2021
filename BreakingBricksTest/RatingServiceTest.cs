@@ -13,8 +13,8 @@ namespace BreakingBricksTest
         public void AddRatingsTest()
         {
             var service = CreateService();
-            service.AddRating(new Rating { Player = "Jonas", PlayerRating = 3 });
-            service.AddRating(new Rating { Player = "Judit", PlayerRating = 4 });
+            service.AddRating(new Rating { ID = 1, Points = 3 });
+            service.AddRating(new Rating { ID = 2, Points = 4 });
 
 
             Assert.AreEqual(2, service.GetTopRatings().Count);
@@ -26,8 +26,8 @@ namespace BreakingBricksTest
         public void ResetRatingsTest()
         {
             var service = CreateService();
-            service.AddRating(new Rating { Player = "Marian", PlayerRating = 2 });
-            service.AddRating(new Rating { Player = "Erik", PlayerRating = 5 });
+            service.AddRating(new Rating { ID = 3, Points = 3 });
+            service.AddRating(new Rating { ID = 4, Points = 7 });
 
             service.ResetRatings();
             Assert.AreEqual(0, service.GetTopRatings().Count);
@@ -35,7 +35,7 @@ namespace BreakingBricksTest
         }
         public IRatingService CreateService()
         {
-            return new RatingServiceFile();
+            return new RatingServiceEF();
         }
     }
 }

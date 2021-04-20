@@ -14,7 +14,8 @@ namespace BreakingBricks.ConsoleUI
         private readonly Field _field;
         //private readonly IScoreService _scoreService = new ScoreServiceFile();
         private readonly IScoreService _scoreService = new ScoreServiceEF();
-       // private readonly ICommentService _commentService = new CommentServiceEF();
+        private readonly ICommentService _commentService = new CommentServiceEF();
+        private readonly IRatingService _ratingService = new RatingServiceEF();
         public int poc = 0;
         public int abeceda = 0;
         public char ch = 'a';
@@ -24,9 +25,10 @@ namespace BreakingBricks.ConsoleUI
         }
         public void Play()
         {
-            //_commentService.AddComment(
-             //   new Comment {11,"me", "yo"});
+            PrintComments();
+            PrintRatings();
             Top();
+            
             do
             {
                 PrintField();
@@ -43,10 +45,31 @@ namespace BreakingBricks.ConsoleUI
                  new Score { Player = Environment.UserName, BrickScore = _field.GetScore(), PlayedAt = DateTime.Now });
                 PrintField();
                 System.Console.WriteLine("Game solved, you did it!");
-            }
-        }
+                Console.WriteLine("What do you think about our game? ");
+                var comment = Console.ReadLine();
 
-        private void Input()
+
+                Console.WriteLine("Rate our game from 0 to 10 points");
+                int rating = Convert.ToInt32(Console.ReadLine());
+                Check(rating);
+                _ratingService.AddRating(
+                    new Rating { Points = rating });
+               
+                _commentService.AddComment(
+                    new Comment { Name = Environment.UserName, Content = comment, PlayedAt = DateTime.Now });
+            }
+            
+        }
+        
+    private void Check(int rating)
+    {
+        while (rating < 0 || rating > 10)
+        {
+            Console.WriteLine("Write number between 1 and 10!");
+            rating = Convert.ToInt32(Console.ReadLine());
+        }
+    }
+    private void Input()
         {
             
             System.Console.Write("Enter which brick you want to destroy: \n");
@@ -138,6 +161,29 @@ namespace BreakingBricks.ConsoleUI
             System.Console.WriteLine("\n    --> BRICK BREAKING! <--");
             System.Console.WriteLine();
         }
+        private void PrintRatings()
+        {
+            System.Console.WriteLine("");
+            System.Console.WriteLine("    -->Our ratings : <--");
+            System.Console.WriteLine("");
+            foreach(var rating in _ratingService.GetTopRatings())
+            {
+                System.Console.WriteLine("            {0} / 10", rating.Points);
+            }
+
+        }
+        private void PrintComments()
+        {
+            System.Console.WriteLine("");
+            System.Console.WriteLine("    -->These are the Top Comments!<--");
+            System.Console.WriteLine("");
+            foreach(var comment in _commentService.GetTopComments())
+            {
+                System.Console.WriteLine("{0} says :  {1}     time : {2}", comment.Name, comment.Content, comment.PlayedAt);
+            }
+
+        }
+        
         
     }
 }

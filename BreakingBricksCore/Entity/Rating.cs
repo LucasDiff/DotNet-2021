@@ -7,10 +7,9 @@ namespace BreakingBricksCore.Entity
     [Serializable]
     public class Rating
     {
-        public string Player { get; set; }
 
-        public DateTime PlayedAt { get; set; }
-        public int PlayerRating { get; set; }
+        public int ID { get; set; }
+        public int Points { get; set; }
 
     }
 }
