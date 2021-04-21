@@ -20,22 +20,13 @@ namespace BreakingBricksTest
             Assert.AreEqual(2, service.GetTopRatings().Count);
 
         }
-
         [TestMethod]
 
-        public void ResetRatingsTest()
-        {
-            var service = CreateService();
-            service.AddRating(new Rating { ID = 3, Points = 3 });
-            service.AddRating(new Rating { ID = 4, Points = 7 });
-
-            service.ResetRatings();
-            Assert.AreEqual(0, service.GetTopRatings().Count);
-
-        }
+       
         public IRatingService CreateService()
         {
             return new RatingServiceEF();
         }
     }
+
 }

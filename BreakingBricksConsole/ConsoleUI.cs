@@ -16,9 +16,9 @@ namespace BreakingBricks.ConsoleUI
         private readonly IScoreService _scoreService = new ScoreServiceEF();
         private readonly ICommentService _commentService = new CommentServiceEF();
         private readonly IRatingService _ratingService = new RatingServiceEF();
-        public int poc = 0;
-        public int abeceda = 0;
-        public char ch = 'a';
+        public int counter = 0;
+        public int alphabet = 0;
+        public char chr = 'a';
         public ConsoleUI(Field field)
         {
             _field = field;
@@ -99,8 +99,8 @@ namespace BreakingBricks.ConsoleUI
         }
         private void PrintField()
         {
-            poc = 0;
-            abeceda = 97;
+            counter = 0;
+            alphabet = 97;
             System.Console.Write("   ");
             for (var column = 1; column < _field.ColumnCount + 1; column++)
             {
@@ -113,19 +113,19 @@ namespace BreakingBricks.ConsoleUI
                 for (var column = 0; column < _field.ColumnCount; column++)
                 {
                     var brick = _field[row, column];
-                    if (poc == 0)
+                    if (counter == 0)
                     {
-                        ch = (char)abeceda;
-                        System.Console.Write(ch + ":");
+                        chr = (char)alphabet;
+                        System.Console.Write(chr + ":");
                     }                   
                     if (brick != null)
                         System.Console.Write("{0,3}", brick.Colour);
                     else
                         System.Console.Write("   ");
-                    poc++;
+                    counter++;
                 }
-                poc = 0;
-                abeceda++;
+                counter = 0;
+                alphabet++;
                 System.Console.WriteLine();
                 
             }

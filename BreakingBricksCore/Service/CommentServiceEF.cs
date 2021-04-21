@@ -27,7 +27,7 @@ namespace BreakingBricksCore.Service
         {
             using (var context = new BreakingBricksDbContext())
             {
-                context.Database.ExecuteSqlRaw("DELETE FROM Comments");
+                context.Database.ExecuteSqlRaw("DELETE FROM Comment");
             }
         }
         public IList<Comment> GetTopComments()

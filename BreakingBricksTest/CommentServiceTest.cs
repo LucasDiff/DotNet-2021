@@ -23,16 +23,8 @@ namespace BreakingBricksTest
 
         [TestMethod]
 
-        public void ResetCommentsTest()
-        {
-            var service = CreateService();
-            service.AddComment(new Comment { ID = 9219, Name = "Jozef", Content = "trochu neprehladne" });
-            service.AddComment(new Comment { ID = 0219, Name = "Anna", Content = "super hra!" });
-
-            service.ResetComments();
-            Assert.AreEqual(0, service.GetTopComments().Count);
-
-        }
+       
+        
         public ICommentService CreateService()
         {
             return new CommentServiceEF();
