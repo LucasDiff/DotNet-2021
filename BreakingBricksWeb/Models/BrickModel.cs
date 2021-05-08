@@ -11,5 +11,8 @@ namespace BreakingBricksWeb.Models
         public Field Field { get; set; }
 
         public IList<Score> Scores{ get; set; }
+        public IList<Comment> Comments { get; set; }
+
+        public IList<Rating> Ratings { get; set; }
     }
 }

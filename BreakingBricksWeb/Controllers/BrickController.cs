@@ -14,6 +14,8 @@ namespace BreakingBricksWeb.Controllers
     public class BrickController : Controller
     {
         private IScoreService _scoreService = new ScoreServiceEF();
+        private ICommentService _commentService = new CommentServiceEF();
+        private IRatingService _ratingService = new RatingServiceEF();
         private const string FieldSessionKey = "field";
 
         public IActionResult Index()
@@ -43,8 +45,10 @@ namespace BreakingBricksWeb.Controllers
             }
 
             var field = (Field) HttpContext.Session.GetObject(FieldSessionKey);
-            field.Move(row,col);          
-            HttpContext.Session.SetObject(FieldSessionKey, field);
+            field.Move(row,col);
+            if (field.MagicWand() == 0)
+            {
+                HttpContext.Session.SetObject(FieldSessionKey, field);
             return View("Index", CreateModel());
         }
 
@@ -55,12 +59,27 @@ namespace BreakingBricksWeb.Controllers
             _scoreService.AddScore(score);
             return View("Index", CreateModel());
         }
+
+        public IActionResult SaveComment(Comment comment)
+        {
+            comment.PlayedAt = DateTime.Now;
+            _commentService.AddComment(comment);
+            return View("Index", CreateModel());
+        }
+        public IActionResult SaveRating(Rating rating)
+        {
+            _ratingService.AddRating(rating);
+            return View("Index", CreateModel());
+        }
+
         private BrickModel CreateModel()
         {
             var field = (Field)HttpContext.Session.GetObject(FieldSessionKey);
             var scores = _scoreService.GetTopScores();
+            var comments = _commentService.GetComments();
+            var ratings = _ratingService.GetTopRatings();
 
-            return new BrickModel { Field = field, Scores = scores };
+            return new BrickModel { Field = field, Scores = scores, Comments = comments, Ratings = ratings };
         }
     }
 }

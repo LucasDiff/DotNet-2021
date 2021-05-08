@@ -7,28 +7,15 @@
 }
 
 
-
-<h1>Breaking Bricks</h1>
-<br />
-<h2>Scores :</h2>
-<ol>
-    @foreach (var score in Model.Scores)
-    {
-        <li>@score.Player @score.BrickScore</li>
-    }
-</ol>
-<form action="/Brick/SaveScore">
-    Name: <input type ="text" name="Player"/> <br />
-    Score: <input type ="number" name="BrickScore" /> <br />
-    <input type="submit" />
-
-
-</form>
+    <img src="/images/brick/@(5).png" />
+    <br />
+    <br />
+    <br />
 <a href="/brick">New Game</a>
 <br />
 Solved: @Model.Field.IsSolved()
 <br />
-
+<br />
 <table>
 
     @for (int row = 0; row < Model.Field.RowCount; row++)
@@ -53,11 +40,46 @@ Solved: @Model.Field.IsSolved()
                             <img src="/images/brick/img@(brick.Colour).png" />
                         </a>
 
-                    </td>
-
-                }
+                    </td>                   
                 c++;
             }
         </tr>
     }
 </table>
+<h2>Scores :</h2>
+<ol>
+    @foreach (var score in Model.Scores)
+    {
+        <li>@score.Player : @score.BrickScore</li>
+    }
+</ol>
+<h2>Comments :</h2>
+<ol>
+    @foreach (var comment in Model.Comments)
+    {
+        <li>@comment.Name : @comment.Content</li>
+    }
+</ol>
+<h2>Ratings :</h2>
+<ol>
+    @foreach (var rating in Model.Ratings)
+    {
+        <h6> @rating.Points / 10</h6>
+
+
+    }
+</ol>
+<form action="/Brick/SaveComment">
+    <h2>Give us your feedback:</h2>
+    Name:    <input type="text" name="Name" /> <br />
+    Comment: <input type="text" name="Content" /> <br />
+    <input type="submit" />
+
+
+</form>
+
+<form action="/Brick/SaveRating">
+    <h2>What do you rate us out of 10 ?</h2>
+    Rating:   <input type="number" name="Points" /> <br />
+    <input type="submit" />
+</form>
