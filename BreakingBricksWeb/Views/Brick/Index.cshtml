@@ -9,13 +9,11 @@
 
     <img src="/images/brick/@(5).png" />
     <br />
-    <br />
-    <br />
 <a href="/brick">New Game</a>
 <br />
 Solved: @Model.Field.IsSolved()
 <br />
-<br />
+
 <table>
 
     @for (int row = 0; row < Model.Field.RowCount; row++)
@@ -40,7 +38,9 @@ Solved: @Model.Field.IsSolved()
                             <img src="/images/brick/img@(brick.Colour).png" />
                         </a>
 
-                    </td>                   
+                    </td>
+
+                }
                 c++;
             }
         </tr>

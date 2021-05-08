@@ -46,8 +46,7 @@ namespace BreakingBricksWeb.Controllers
 
             var field = (Field) HttpContext.Session.GetObject(FieldSessionKey);
             field.Move(row,col);
-            if (field.MagicWand() == 0)
-            {
+            
                 HttpContext.Session.SetObject(FieldSessionKey, field);
             return View("Index", CreateModel());
         }
