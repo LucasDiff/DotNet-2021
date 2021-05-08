@@ -1,0 +1,63 @@
+﻿@using BreakingBricksWeb.Models
+@model BrickModel
+
+
+@{
+    ViewData["Title"] = "Brick";
+}
+
+
+
+<h1>Breaking Bricks</h1>
+<br />
+<h2>Scores :</h2>
+<ol>
+    @foreach (var score in Model.Scores)
+    {
+        <li>@score.Player @score.BrickScore</li>
+    }
+</ol>
+<form action="/Brick/SaveScore">
+    Name: <input type ="text" name="Player"/> <br />
+    Score: <input type ="number" name="BrickScore" /> <br />
+    <input type="submit" />
+
+
+</form>
+<a href="/brick">New Game</a>
+<br />
+Solved: @Model.Field.IsSolved()
+<br />
+
+<table>
+
+    @for (int row = 0; row < Model.Field.RowCount; row++)
+    {
+
+        int c = row * 8;
+        <tr>
+            @for (int column = 0; column < Model.Field.ColumnCount; column++)
+            {
+
+                var brick = Model.Field[row, column];
+                if (brick == null)
+                {
+
+                    <td>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a href="/Brick/Move?c=@(c)">
+                            <img src="/images/brick/img@(brick.Colour).png" />
+                        </a>
+
+                    </td>
+
+                }
+                c++;
+            }
+        </tr>
+    }
+</table>

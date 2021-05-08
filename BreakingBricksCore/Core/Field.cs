@@ -5,7 +5,8 @@ using System.Linq;
 using BreakingBricksCore.Core;
 
 namespace BreakingBricks.Core
-{
+{       
+    [Serializable]
     public class Field
     {
         private readonly  Brick[,] _bricks;

@@ -4,6 +4,7 @@ using System.Text;
 
 namespace BreakingBricks.Core
 {
+    [Serializable]  
     public class Brick
     {
         public Brick(int colour, bool marked)
