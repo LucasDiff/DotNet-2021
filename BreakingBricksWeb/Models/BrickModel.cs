@@ -14,5 +14,7 @@ namespace BreakingBricksWeb.Models
         public IList<Comment> Comments { get; set; }
 
         public IList<Rating> Ratings { get; set; }
+
+        public int Score { get; set; }
     }
 }

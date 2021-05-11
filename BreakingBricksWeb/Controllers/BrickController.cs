@@ -50,7 +50,7 @@ namespace BreakingBricksWeb.Controllers
                 HttpContext.Session.SetObject(FieldSessionKey, field);
             return View("Index", CreateModel());
         }
-
+                
         public IActionResult SaveScore(Score score)
         {
             //   _scoreService.AddScore(new Score() { PlayedAt = DateTime.Now, Player = Player, BrickScore = BrickScore });\
@@ -77,8 +77,9 @@ namespace BreakingBricksWeb.Controllers
             var scores = _scoreService.GetTopScores();
             var comments = _commentService.GetComments();
             var ratings = _ratingService.GetTopRatings();
+            
 
-            return new BrickModel { Field = field, Scores = scores, Comments = comments, Ratings = ratings };
+            return new BrickModel { Field = field, Scores = scores, Comments = comments, Ratings = ratings};
         }
     }
 }

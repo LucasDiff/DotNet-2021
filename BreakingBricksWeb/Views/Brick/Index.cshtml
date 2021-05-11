@@ -7,45 +7,70 @@
 }
 
 
-    <img src="/images/brick/@(5).png" />
-    <br />
+<img src="/images/brick/@(5).png" />
+<br />
 <a href="/brick">New Game</a>
 <br />
-Solved: @Model.Field.IsSolved()
+@if (Model.Field.Magic != 0)
+{
+    <h3>You have @Model.Field.Magic magic wands Left! </h3>
+}
+@if (Model.Field.IsSolved())
+{
+    <h1>GOOD JOB YOU DID IT!</h1>
+    <form action="/Brick/SaveScore">
+        Type your username: <input type="text" name="Player" /><br />
+        Score: <input type="number" name="BrickScore" /><br />
+        <input type="submit" /><br />
+    </form>
+}
 <br />
+@if (Model.Field.Magic == 0)
+{
+    <h1>You lost all your magic wands!</h1>
+}
+@if (Model.Field.IsSolved())
+{
+    <h1>Your score was @Model.Field.GetScore()</h1>
+}
+<br />
+<br />
+<br />
+@if (Model.Field.Magic != 0 && !Model.Field.IsSolved())
+{
+    <table>
 
-<table>
+        @for (int row = 0; row < Model.Field.RowCount; row++)
+        {
 
-    @for (int row = 0; row < Model.Field.RowCount; row++)
-    {
-
-        int c = row * 8;
-        <tr>
-            @for (int column = 0; column < Model.Field.ColumnCount; column++)
-            {
-
-                var brick = Model.Field[row, column];
-                if (brick == null)
+            int c = row * 8;
+            <tr>
+                @for (int column = 0; column < Model.Field.ColumnCount; column++)
                 {
 
-                    <td>
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        <a href="/Brick/Move?c=@(c)">
-                            <img src="/images/brick/img@(brick.Colour).png" />
-                        </a>
+                    var brick = Model.Field[row, column];
+                    if (brick == null)
+                    {
 
-                    </td>
+                        <td>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a href="/Brick/Move?c=@(c)">
+                                <img src="/images/brick/img@(brick.Colour).png" />
+                            </a>
 
+                        </td>
+
+                    }
+                    c++;
                 }
-                c++;
-            }
-        </tr>
-    }
-</table>
+            </tr>
+        }
+    </table>
+}
 <h2>Scores :</h2>
 <ol>
     @foreach (var score in Model.Scores)

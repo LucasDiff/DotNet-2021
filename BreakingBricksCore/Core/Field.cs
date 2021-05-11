@@ -17,7 +17,9 @@ namespace BreakingBricks.Core
         public int Score;
         public int Total;
         public int Num;
+        public int Count;
         public int Magic = 3;
+        public int Skore = 0;
         
         public Field(int rowCount, int columnCount)
         {
@@ -129,6 +131,8 @@ namespace BreakingBricks.Core
             {
                 Magic--;
             }
+            GetScore();
+            
         }
 
         private void ExchangeColumns(int col)
@@ -183,6 +187,7 @@ namespace BreakingBricks.Core
                 Num *= 2;
             }
             Total = Total + Num - 2;
+            
             return Total;
         }
     }
